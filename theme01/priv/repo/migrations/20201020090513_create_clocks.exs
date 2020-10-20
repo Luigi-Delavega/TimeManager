@@ -5,7 +5,7 @@ defmodule Gotham.Repo.Migrations.CreateClocks do
     create table(:clocks) do
       add :time, :naive_datetime, null: false
       add :status, :boolean, default: false, null: false
-      add :user, references(:user, on_delete: :nothing), null: false
+      add :user, references(:users, on_delete: :nothing), null: false
 
       timestamps()
     end
