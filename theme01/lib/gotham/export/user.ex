@@ -2,10 +2,7 @@ defmodule Gotham.Export.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key false
-
   schema "users" do
-    field :userID, :id, primary_key: true
     field :email, :string
     field :username, :string
 

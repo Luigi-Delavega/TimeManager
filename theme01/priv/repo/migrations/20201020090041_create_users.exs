@@ -2,8 +2,7 @@ defmodule Gotham.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do
-    create table(:users, primary_key: false) do
-      add :userID, :id, primary_key: true
+    create table(:users) do
       add :username, :string, null: false
       add :email, :string, null: false
 
