@@ -9,7 +9,6 @@ defmodule GothamWeb.Router do
   scope "/api", GothamWeb do
     pipe_through :api
     resources "/clocks", ClockController, only: [:index, :create]
-    resources "/users", UserController, only: [:show, :create]
-    put "/users", UserController, :update
+    resources "/users", UserController, only: [:index, :show, :create, :update]
   end
 end

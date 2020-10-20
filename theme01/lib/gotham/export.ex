@@ -35,6 +35,12 @@ defmodule Gotham.Export do
       ** (Ecto.NoResultsError)
 
   """
+
+  def get_user_by_mail_name!(params) do
+    from(u in User, where: u.username == ^params["username"] and u.email == ^params["email"])
+    |> Repo.one
+  end
+
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
