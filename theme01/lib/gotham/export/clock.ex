@@ -5,7 +5,7 @@ defmodule Gotham.Export.Clock do
   schema "clocks" do
     field :status, :boolean, default: false, null: false
     field :time, :naive_datetime, null: false
-    field :user, :id, null: false
+    field :user_id, :integer, null: false
 
     timestamps()
   end
@@ -13,7 +13,7 @@ defmodule Gotham.Export.Clock do
   @doc false
   def changeset(clock, attrs) do
     clock
-    |> cast(attrs, [:time, :status])
+    |> cast(attrs, [:time, :status, :user_id])
     |> validate_required([:time, :status])
   end
 end
