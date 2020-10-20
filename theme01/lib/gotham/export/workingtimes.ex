@@ -3,16 +3,9 @@ defmodule Gotham.Export.Workingtimes do
   import Ecto.Changeset
 
   schema "workingtimes" do
-<<<<<<< Updated upstream
-    field :end, :naive_datetime, null: false
-    field :start, :naive_datetime, null: false
-    field :user, :id, null: false
-=======
     field :end, :string, null: false
     field :start, :string, null: false
-
-    belongs_to :user, Gotham.Export.User
->>>>>>> Stashed changes
+    field :user, :id, null: false
 
     timestamps()
   end
