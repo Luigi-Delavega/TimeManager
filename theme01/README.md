@@ -28,3 +28,5 @@ mix run priv/repo/seeds/task_user.exs
 
 Then run the server
 mix phx.server
+
+il faut spécifier un userId pour pouvoir créer un nouveau workingtime.
