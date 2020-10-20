@@ -21,7 +21,7 @@ defmodule GothamWeb.ClockController do
   end
 
   def show(conn, %{"user" => userID}) do
-    clock = Export.get_clock!(id)
+    clock = Export.get_clock!(userID)
     render(conn, "show.json", clock: clock)
   end
 
