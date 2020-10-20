@@ -24,9 +24,12 @@ list of commands before running the app
 mix ecto.create
 mix ecto.migrate
 
-mix run priv/repo/seeds/task_user.exs 
+mix run priv/repo/seeds/user_seed.exs 
+mix run priv/repo/seeds/workingtimes_seed.exs 
 
 Then run the server
 mix phx.server
-
-il faut spécifier un userId pour pouvoir créer un nouveau workingtime.
+VO.1
+Working : CRUD on users
+To be done
+WorkingTime routes, Clock routes.
