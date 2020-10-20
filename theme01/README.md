@@ -17,3 +17,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+list of commands before running the app
+
+mix ecto.create
+mix ecto.migrate
+
+mix run priv/repo/seeds/task_user.exs 
+
+Then run the server
+mix phx.server

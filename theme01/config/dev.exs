@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :gotham, Gotham.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "epitech",
+  password: "epitech",
   database: "gotham_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
