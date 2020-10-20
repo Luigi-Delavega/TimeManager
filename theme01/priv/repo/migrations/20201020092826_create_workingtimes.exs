@@ -3,9 +3,9 @@ defmodule Gotham.Repo.Migrations.CreateWorkingtimes do
 
   def change do
     create table(:workingtimes) do
-      add :start, :naive_datetime, null:false
-      add :end, :naive_datetime, null:false
-      add :user, references(:user, on_delete: :nothing), null:false
+      add :start, :naive_datetime, null: false
+      add :end, :naive_datetime, null: false
+      add :user, references(:users, on_delete: :nothing), null: false
 
       timestamps()
     end
