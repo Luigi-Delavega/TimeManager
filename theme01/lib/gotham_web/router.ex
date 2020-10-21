@@ -14,14 +14,11 @@ defmodule GothamWeb.Router do
     get("/clocks/:user_id", ClockController, :show)
     post("/clocks/:user_id", ClockController, :create)
     
-
-
-    get("/workingtimes/:user_id", WorkingtimesController, :index)
-
-
-    get("/workingtimes/:user_id", WorkingtimesController, :show)
-    get("/workingtimes/:user_id/:id", WorkingtimesController, :showw)
-    post("/workingtimes/:user_id", WorkingtimesController, :create)
+    
+    # get("/workingtimes/:user_id", WorkingtimesController, :show)
+    get("/workingtimes/:user_id/:id", WorkingtimesController, :showone)
+    # get("/workingtimes/:user_id", WorkingtimesController, :index)
+    # post("/workingtimes/:user_id", WorkingtimesController, :create)
     resources "/workingtimes", WorkingtimesController, only: [:update, :delete]
     
   end

@@ -247,7 +247,20 @@ defmodule Gotham.Export do
   """
   def get_workingtimes!(id), do: Repo.get!(Workingtimes, id)
 
-  # def get_workingtimess!(id), do: Repo.get!(Workingtimes, id)
+  # def get_oneworkingtimes!(params), do: Repo.get_by(Workingtimes,  user_id  ^params["user_id"])
+
+  def get_oneworkingtimes!(params) do
+    from(w in Workingtimes, where: w.user_id == ^params["user_id"] and w.id == ^params["id"])
+    |> Repo.one
+    # Repo.all
+  end
+
+
+
+  # def get_oneworkingtimes!(params) do
+  #   from(w in Workingtime, where: w.user_id == ^params["user_id"] and w.id == ^params["id"])
+  #   |> Repo.one
+  # end
 
   @doc """
   Creates a workingtimes.
