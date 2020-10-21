@@ -2,12 +2,15 @@ defmodule GothamWeb.Router do
   use GothamWeb, :router
   alias GothamWeb.Router.Helpers, as: Routes
   
+
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 
   scope "/api", GothamWeb do
     pipe_through :api
+    options "/users", UserController, :create
     resources "/users", UserController, except: [:new, :edit]
 
     resources "/clocks", ClockController, only: [:index]
