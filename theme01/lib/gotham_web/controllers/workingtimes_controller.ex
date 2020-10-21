@@ -7,12 +7,12 @@ defmodule GothamWeb.WorkingtimesController do
   action_fallback GothamWeb.FallbackController
 
   def index(conn, _params) do
-    workingtimes = Export.list_workingtimes()
+    workingtimes = Export.get_workingtime_by_start_end_userID()
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"workingtimes" => workingtimes_params}) do
-    with {:ok, %Workingtimes{} = workingtimes} <- Export.create_workingtimes(workingtimes_params) do
+  def create(conn, %{"user_id" => user_id, "workingtimes" => workingtimes_params}) do
+    with {:ok, %Workingtimes{} = workingtimes} <- Export.create_workingtimes(Map.merge(%{"user_id" => user_id}, workingtimes_params)) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.workingtimes_path(conn, :show, workingtimes))
@@ -20,10 +20,15 @@ defmodule GothamWeb.WorkingtimesController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    workingtimes = Export.get_workingtimes!(id)
+  def show(conn, %{"id" => id, "user_id" => user_id}) do
+    workingtimes = Export.get_workingtimes!(Map.merge(%{"user_id" => user_id}, id))
     render(conn, "show.json", workingtimes: workingtimes)
   end
+
+  # def show(conn, %{"id" => id}) do
+  #   workingtimes = Export.get_workingtimes!(id)
+  #   render(conn, "show.json", workingtimes: workingtimes)
+  # end
 
   def update(conn, %{"id" => id, "workingtimes" => workingtimes_params}) do
     workingtimes = Export.get_workingtimes!(id)

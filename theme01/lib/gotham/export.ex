@@ -253,6 +253,12 @@ defmodule Gotham.Export do
       {:error, %Ecto.Changeset{}}
 
   """
+  def get_workingtime_by_start_end_userID!(params) do
+    from(w in Workingtime, where: w.start == ^params["start"] or w.end == ^params["end"])
+    |> Repo.all
+  end
+
+
   def create_workingtimes(attrs \\ %{}) do
     %Workingtimes{}
     |> Workingtimes.changeset(attrs)
