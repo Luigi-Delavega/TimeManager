@@ -11,8 +11,11 @@ defmodule GothamWeb.ClockView do
   end
 
   def render("clock.json", %{clock: clock}) do
-    %{id: clock.id,
-      time: clock.time,
-      status: clock.status}
+    %{
+        id: clock.id,
+        time: clock.time,
+        status: clock.status,
+        user_id: clock.user_id
+      }
   end
 end

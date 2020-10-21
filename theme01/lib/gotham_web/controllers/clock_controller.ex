@@ -11,8 +11,8 @@ defmodule GothamWeb.ClockController do
     render(conn, "index.json", clocks: clocks)
   end
 
-  def create(conn, %{"clock" => clock_params}) do
-    with {:ok, %Clock{} = clock} <- Export.create_clock(clock_params) do
+  def create(conn, %{"user_id" => user_id, "clock" => clock_params}) do
+    with {:ok, %Clock{} = clock} <- Export.create_clock(Map.merge(%{"user_id" => user_id}, clock_params)) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
