@@ -222,7 +222,13 @@ defmodule Gotham.Export do
 
   """
   def list_workingtimes do
-    Repo.all(Workingtimes)
+    from(w in Workingtime)
+    |> Repo.all(Workingtimes)
+  end
+
+  def get_workingtime_by_end_start!(params) do
+    from(u in Workingtimes, where: u.user_id ==^params["user_id"] and( u.end == ^params["end"] or u.start == ^params["start"]))   #### get ALL 
+    |> Repo.all()
   end
 
   @doc """
@@ -241,6 +247,8 @@ defmodule Gotham.Export do
   """
   def get_workingtimes!(id), do: Repo.get!(Workingtimes, id)
 
+  # def get_workingtimess!(id), do: Repo.get!(Workingtimes, id)
+
   @doc """
   Creates a workingtimes.
 
@@ -253,11 +261,7 @@ defmodule Gotham.Export do
       {:error, %Ecto.Changeset{}}
 
   """
-  def get_workingtime_by_start_end_userID!(params) do
-    from(w in Workingtime, where: w.start == ^params["start"] or w.end == ^params["end"])
-    |> Repo.all
-  end
-
+  
 
   def create_workingtimes(attrs \\ %{}) do
     %Workingtimes{}

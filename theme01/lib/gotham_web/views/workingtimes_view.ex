@@ -13,6 +13,7 @@ defmodule GothamWeb.WorkingtimesView do
   def render("workingtimes.json", %{workingtimes: workingtimes}) do
     %{id: workingtimes.id,
       start: workingtimes.start,
-      end: workingtimes.end}
+      end: workingtimes.end,
+      user_id: workingtimes.user_id}
   end
 end
