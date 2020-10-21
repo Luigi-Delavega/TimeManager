@@ -26,8 +26,8 @@ defmodule GothamWeb.WorkingtimesController do
     end
   end
 
-  def showw(conn, %{"id" => id, "user_id" => user_id}) do
-    workingtimes = Export.get_workingtimess!(Map.merge(%{"user_id" => user_id}, id))
+  def showone(conn, %{"user_id" => user_id, "id" => id} = params) do
+    workingtimes = Export.get_oneworkingtimes!(params)
     render(conn, "show.json", workingtimes: workingtimes)
   end
 
