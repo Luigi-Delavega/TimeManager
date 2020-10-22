@@ -33,3 +33,4 @@ todo_list-*.tar
 # Node files
 node_modules/
 package-lock.json
+/.idea/

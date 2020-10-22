@@ -13,12 +13,12 @@
         />
       </div>
     </div>
-    <Users v-bind:users="results"/>
+    <Users v-bind:users="users"/>
   </div>
 </template>
 <script>
-import axios from "axios";
 import Users from "./Users";
+import dataService from "../services/dataService";
 
 export default {
   name: "search",
@@ -28,14 +28,14 @@ export default {
   data() {
     return {
       query: "",
-      results: [],
+      dataService: dataService,
+      users: []
     };
   },
   created: function () {
-    axios.get("http://localhost:4000/api/users").then((res) => {
-        this.results = JSON.parse(JSON.stringify(res.data.data));
-        console.log(this.results);
-      });
+   dataService.getAllUsers().then((res) => {
+      this.users = JSON.parse(JSON.stringify(res.data.data));
+    });
   },
   methods: {
     getResult(query) {
