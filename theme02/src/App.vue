@@ -1,27 +1,32 @@
 <template>
   <div id="app">
-    <Search />
+    <Menu />
+    <b-row>
+      <b-col>
+      </b-col>
+      <b-col cols="11">
+        <router-view></router-view>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
-import Search from "./components/Search";
+import Menu from "./components/Menu/";
 
 export default {
   name: "App",
   components: {
-    Search,
+    Menu,
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  #app, 
+  #app > .row,
+   #app > .row > .col {
+    height: 100vh;
+  }
 </style>
+
