@@ -10,7 +10,6 @@
     </b-row>
   </div>
 </template>
-
 <script>
 import Menu from "./components/Menu/";
 
@@ -27,6 +26,10 @@ export default {
   #app > .row,
    #app > .row > .col {
     height: 100vh;
+  }
+  button:focus {
+        outline: unset !important;
+        outline: 0 !important;
   }
 </style>
 
