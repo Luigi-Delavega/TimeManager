@@ -22,10 +22,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
---- notes (to be removed)
-<template is our markup, <script is our js code, 
-<style scoped is our css for this particular component
-
-abscisse : users, ordonnées : mois, workingTime = gap d'heures / utilisateurs
