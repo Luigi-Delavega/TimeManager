@@ -5,7 +5,7 @@
         flat
         :active="active == 1"
         @click="active = 1"
-        v-on:click="getAllUsers()"
+        v-on:click="dataService.getAllUsers()"
       >
         List all users
       </vs-button>
@@ -35,18 +35,11 @@ export default {
   data() {
     return {
       query: "",
+      dataService: dataService,
       results: []
     };
   },
   methods: {
-    getAllUsers() {
-      axios
-        .get("http://localhost:4000/api/users/1")
-        .then((res) => {
-          this.results = JSON.parse(JSON.stringify(res.data.data));
-          console.log(JSON.parse(JSON.stringify(res.data.data)));
-        });
-    },
     getResult(query) {
       axios
         .get("http://localhost:4000/api/users?username=" + query + "&email=")
