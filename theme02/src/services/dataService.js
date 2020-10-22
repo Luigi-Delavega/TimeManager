@@ -6,4 +6,16 @@ export default {
         return axios
             .get(devServer.proxy + "/users");
     },
+    removeUser(id) {
+        return axios
+        .delete(devServer.proxy + "/users/" + id);
+    },
+    
+    UpdateUser(id, query) {
+        return  axios.put(devServer.proxy + "/users/" + id, {
+            user: {
+                username: query
+            }
+        })
+    }
 }

@@ -11,6 +11,7 @@ defmodule GothamWeb.Router do
   scope "/api", GothamWeb do
     pipe_through :api
     options "/users", UserController, :create
+    options "/users/:id", UserController, :remove
 
     get "/users", UserController, :getAll
     resources "/users", UserController, except: [:new, :edit]
