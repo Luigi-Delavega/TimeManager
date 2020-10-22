@@ -1,12 +1,16 @@
 <template>
   <section class="parent">
     <h1>{{title}}</h1>
-    <donut-chart
-            id="donut"
-            :data="donutData"
-            colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
+    <line-chart
+            id="line"
+            :data=lineChartData
+            line-colors='[ "#FF6384", "#36A2EB" ]'
+            xkey="year"
+            ykeys='[ "a", "b"]'
+            grid="true"
+            grid-text-weight="bold"
             resize="true">
-    </donut-chart>
+    </line-chart>
     <router-view></router-view>
   </section>
 </template>
@@ -15,7 +19,7 @@
 import dataService from "../services/dataService";
 import Raphael from 'raphael/raphael'
 global.Raphael = Raphael
-import { DonutChart } from 'vue-morris'
+import { LineChart } from 'vue-morris'
 
 export default {
   name: 'Dashboard',
@@ -24,18 +28,22 @@ export default {
       title: 'Dashboard',
       users: [],
       dataService: dataService,
-      donutData: [
-        {label: 'Red', value: 300},
-        {label: 'Blue', value: 50},
-        {label: 'Yellow', value: 100}
+      lineChartData: [
+        {year: "2013", a: 10, b: 5 },
+        {year: "2014", a: 40, b: 15 },
+        {year: "2015", a: 20, b: 25 },
+        {year: "2016", a: 30, b: 20 },
       ],
     }
   },
   components: {
-    DonutChart
+    LineChart
   },
   created() {
-    this.users = dataService.getAllUsers();
+    dataService.getAllUsers().then((res) => {
+      this.users = res;
+      console.log(this.users);
+    });
   }
 };
 </script>
