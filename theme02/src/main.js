@@ -12,7 +12,6 @@ import { faChartLine, faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faChartLine, faClock)
 
-
 Vue.config.productionTip = false
 
 import 'vue-material/dist/vue-material.min.css'
