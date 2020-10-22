@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Dashboard from "./components/Dashboard";
 import Search from "./components/Search";
 import Create from "./components/Create";
+import WorkingTimes from "./components/WorkingTimes";
 
 Vue.use(Router);
 
@@ -31,6 +32,14 @@ export default new Router({
       component: Create,
       meta: {
         label: "Create"
+      }
+    },
+    {
+      path: "/workingtimes",
+      name: "WorkingTimes",
+      component: WorkingTimes,
+      meta: {
+        label: "WorkingTimes"
       }
     }
   ]
