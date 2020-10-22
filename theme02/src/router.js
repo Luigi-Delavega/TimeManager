@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import Search from "./components/Search";
 import Create from "./components/Create";
 import WorkingTimes from "./components/WorkingTimes";
+import WorkingTime from "./components/WorkingTime";
 
 Vue.use(Router);
 
@@ -40,6 +41,14 @@ export default new Router({
       component: WorkingTimes,
       meta: {
         label: "WorkingTimes"
+      }
+    },
+    {
+      path: "/workingtime",
+      name: "WorkingTime",
+      component: WorkingTime,
+      meta: {
+        label: "WorkingTime"
       }
     }
   ]
