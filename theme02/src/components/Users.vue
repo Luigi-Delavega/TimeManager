@@ -29,13 +29,12 @@
                   />
                 </vs-avatar>
                 <vs-input
-                  @keyup="test(query)"
                   type="text"
                   class="px-4 input"
                 />
               </div>
               <div class="d-flex w-50 justify-content-end">
-                <vs-button flat icon>
+                <vs-button flat icon v-on:click="postClock(tr.id)">
                   <font-awesome-icon icon="clock" />
                 </vs-button>
 
@@ -55,6 +54,8 @@
 
 <script>
 import dataService from "../services/dataService";
+import axios from "axios"
+import { devServer } from "../../vue.config";
 
 export default {
   name: "Users",
@@ -65,22 +66,39 @@ export default {
       var index = this.users.findIndex((x) => x.id === userID);
       this.users.splice(index, 1);
     },
-    test(query) {
-      // this.query = query
-      console.log(query);
-    },
     save(userID) {
       var query = document.querySelector('.input input').value
       dataService.UpdateUser(userID, query)
       document.querySelector(".isExpand").click()
       this.users.find(x => x.id === userID).username = query;
     },
+        postClock(id) {
+          
+        var d = new Date,
+        dformat = [ (d.getFullYear()+1).padLeft(),
+                    d.getMonth().padLeft(),
+                    d.getDate()].join('-')+
+                    ' ' +
+                  [ d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
+        axios.post(devServer.proxy + "/clocks/" + id, {
+            clock: {
+                state: true,
+                time: dformat
+            }
+        })
+        }
   },
   data: () => ({
     dataService: dataService,
     query: "",
   }),
 };
+Number.prototype.padLeft = function(base,chr){
+   var  len = (String(base || 10).length - String(this).length)+1;
+   return len > 0? new Array(len).join(chr || '0')+this : this;
+}
 </script>
 
 <style>

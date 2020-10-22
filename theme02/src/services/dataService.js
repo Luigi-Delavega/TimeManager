@@ -17,5 +17,22 @@ export default {
                 username: query
             }
         })
+    },
+    PostClock(id) {
+        
+        var d = new Date,
+        dformat = [ (d.getFullYear()+1).padLeft(),
+                    d.getMonth().padLeft(),
+                    d.getDate()].join('-')+
+                    ' ' +
+                  [ d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
+        axios.post(devServer.proxy + "/clocks/" + id, {
+            clock: {
+                state: true,
+                time: dformat
+            }
+        })
     }
 }
