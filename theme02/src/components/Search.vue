@@ -27,6 +27,7 @@
 </template>
 <script>
 import axios from "axios";
+import dataService from '../services/dataService';
 // import Users from "./Users";
 
 export default {
