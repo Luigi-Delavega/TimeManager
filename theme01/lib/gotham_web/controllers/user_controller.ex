@@ -6,6 +6,11 @@ defmodule GothamWeb.UserController do
 
   action_fallback GothamWeb.FallbackController
 
+  def getAll(conn, _params) do
+    users = Export.list_users()
+    render(conn, "index.json", users: users)
+  end
+
   def index(conn, %{"username" => _username, "email" => _email} = params) do
     users = Export.get_user_by_mail_name!(params)
     render(conn, "index.json", users: users)
