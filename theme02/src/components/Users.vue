@@ -11,7 +11,7 @@
       <template #tbody>
         <vs-tr :key="i" v-for="(tr, i) in users">
           <vs-td>
-            {{ tr.name }}
+            {{ tr.username }}
           </vs-td>
           <vs-td>
             {{ tr.email }}
@@ -21,20 +21,20 @@
           </vs-td>
 
           <template #expand>
-            <div class="con-content">
-              <div>
-                <vs-avatar>
-                  <img :src="`/avatars/avatar-${i + 1}.png`" alt="" />
-                </vs-avatar>
-                <p>
-                  {{ tr.name }}
+            <div class="con-content d-flex justify-content-end">
+              <div class="d-flex align-items-end w-50">
+					<vs-avatar>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRCDe5JZ_HkfuU5VFQDlF0j1jeCl-SCj_mJdA&usqp=CAU">
+                  </vs-avatar>
+                <p class="px-4">
+                  {{ tr.username }}
                 </p>
               </div>
-              <div>
+              <div class="d-flex w-50 justify-content-end">
                 <vs-button flat icon>
-                  <i class="bx bx-lock-open-alt"></i>
+                  <font-awesome-icon icon="clock" />
                 </vs-button>
-                <vs-button flat icon> Send Email </vs-button>
+                <vs-button flat icon> Edit </vs-button>
                 <vs-button border danger> Remove User </vs-button>
               </div>
             </div>
@@ -47,7 +47,9 @@
 
 <script>
 export default {
-	name: "Users",
+  name: "Users",
+	props: ['users'],
+
   data: () => ({
     editActive: false,
     edit: null,
@@ -134,4 +136,9 @@ export default {
 };
 </script>
 
+<style>
+	.vs-button--icon .vs-button__content {
+		padding: 8px 12px !important;
+	}
+</style>
         

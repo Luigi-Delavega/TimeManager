@@ -8,9 +8,9 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Vuesax from 'vuesax'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faChartLine)
+library.add(faChartLine, faClock)
 
 
 Vue.config.productionTip = false
