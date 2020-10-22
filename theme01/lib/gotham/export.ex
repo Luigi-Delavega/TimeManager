@@ -143,7 +143,8 @@ defmodule Gotham.Export do
       ** (Ecto.NoResultsError)
 
   """
-get clock  def get_clock!(id), do: Repo.get!(Clock, user_id)
+  #get clock
+  def get_clock!(user_id), do: Repo.get!(Clock, user_id)
 
   @doc """
   Creates a clock.
