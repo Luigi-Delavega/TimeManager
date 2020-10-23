@@ -28,12 +28,6 @@
         <template #icon>
           <font-awesome-icon icon="chart-line" />
         </template>
-        <router-link :to="{ path: 'workingtimes' }">Display all WorkingTimes</router-link>
-      </vs-sidebar-item>
-      <vs-sidebar-item id="market">
-        <template #icon>
-          <font-awesome-icon icon="chart-line" />
-        </template>
         <router-link :to="{ path: 'workingtime' }">Manage WorkingTime</router-link>
       </vs-sidebar-item>
     </vs-sidebar>

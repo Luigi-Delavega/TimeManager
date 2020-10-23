@@ -26,6 +26,11 @@ defmodule GothamWeb.WorkingtimesController do
     end
   end
 
+  def show_workingtimes(conn, %{"user_id" => user_id}) do
+    workingtimes = Export.get_workingtimes_by_user_id!(user_id)
+    render(conn, "index.json", workingtimes: workingtimes)
+  end
+
   def showone(conn, %{"user_id" => user_id, "id" => id} = params) do
     workingtimes = Export.get_oneworkingtimes!(params)
     render(conn, "show.json", workingtimes: workingtimes)

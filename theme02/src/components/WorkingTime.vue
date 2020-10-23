@@ -1,117 +1,46 @@
 <template>
-  <div class="mt-5 d-flex align-items-end">
-
-    <div class="center content-inputs">
-      <label>
-        <small>Create a WorkingTime</small>
-      </label>
-      <vs-input
-        type="text"
-        v-model="userID"
-        @keyup="createWorkingtime(userID)"
-        placeholder="Search"
-      />
+  <div class="mt-5 d-flex flex-column">
+    <div class="mb-5 d-flex align-items-end">
+      <div class="center content-inputs">
+        <label>
+          <small> Rechercher par start ou par end</small>
+        </label>
+        <vs-input
+          type="text"
+          v-model="query"
+          @keyup="getResult(query)"
+          placeholder="WorkingTime"
+        />
+      </div>
     </div>
-    <div class="center content-inputs">
-      <label>
-        <small>Update a WorkingTime</small>
-      </label>
-      <vs-input
-        type="text"
-        v-model="ID"
-        @keyup="updateWorkingtime(ID)"
-        placeholder="Search"
-      />
-    </div>
-    <div class="center content-inputs">
-      <label>
-        <small>Delete a WorkingTime</small>
-      </label>
-      <vs-input
-        type="text"
-        v-model="ID"
-        @keyup="deleteWorkingtime(ID)"
-        placeholder="Search"
-      />
-    </div>
-    <!-- <div style="height: fit-content">
-      <vs-button
-        flat
-        :active="active == 1"
-        @click="active = 1"
-        v-on:click="getOneWorkingtime()"
-      >
-        Get one WorkingTime
-      </vs-button>
-    </div> -->
-
-    <div style="height: fit-content">
-      <vs-button
-        flat
-        :active="active == 1"
-        @click="active = 1"
-        v-on:click="getOneWorkingtime()"
-      >
-        Get one WorkingTime
-      </vs-button>
-    </div>
-
-    <div class="center content-inputs">
-      <label>
-        <small> Get one WorkingTime</small>
-      </label>
-      <vs-input
-        type="text"
-        v-model="query"
-        @keyup="getOneWorkingtime(query)"
-        placeholder="Search"
-      />
-    </div>
+    <WorkingTimes v-bind:workingtimes="workingtimes"/>
   </div>
 </template>
 <script>
-import axios from "axios";
+import WorkingTimes from "./WorkingTimes";
+import dataService from "../services/dataService";
 
 export default {
   name: "workingtime",
+  components: {
+    WorkingTimes,
+  },
   data() {
     return {
       query: "",
-      results: []
+      dataService: dataService,
+      workingtimes: []
     };
   },
+  created: function (userID) {
+   dataService.getAllWorkingTimes(userID).then((res) => {
+      this.workingtimes = JSON.parse(JSON.stringify(res.data.data));
+    });
+  },
   methods: {
-    createWorkingtime(userID) {
-      axios
-        .post("http://localhost:4000/api/workingtimes/" + userID)
-        .then((res) => {
-          this.results = res.data.results;
-        });
-      console.log(userID);
-    },
-    updateWorkingtime(ID) {
-      axios
-        .put("http://localhost:4000/api/workingtimes/" + ID)
-        .then((res) => {
-          this.results = res.data.results;
-        });
-      console.log(ID);
-    },
-    deleteWorkingtime(ID) {
-      axios
-        .delete("http://localhost:4000/api/workingtimes/" + ID)
-        .then((res) => {
-          this.results = res.data.results;
-        });
-      console.log(ID);
-    },
-    getOneWorkingtime(userID, ID) {
-      axios
-        .get("http://localhost:4000/api/workingtimes/"+ userID + "/" + ID)
-        .then((res) => {
-          this.results = res.data.results;
-        });
-      console.log(userID + "/" + ID);
+    getResult(query) {
+      console.log(query); 
+      // rajouter filtre start + end
     },
   },
 };
