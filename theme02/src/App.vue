@@ -10,7 +10,6 @@
     </b-row>
   </div>
 </template>
-
 <script>
 import Menu from "./components/Menu/";
 
