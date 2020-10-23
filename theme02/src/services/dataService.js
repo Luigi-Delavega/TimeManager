@@ -30,7 +30,7 @@ export default {
         return axios.get(devServer.proxy + "/clocks/" + id);
     },
 
-    getAllWorkingTimes(id) {
+    getAllWorkingTimesUser(id) {
         return axios
             .get(devServer.proxy + "/workingtimes/" + id);
     },

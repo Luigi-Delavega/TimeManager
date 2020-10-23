@@ -6,6 +6,7 @@
           <vs-th> Start </vs-th>
           <vs-th> End </vs-th>
           <vs-th> Id </vs-th>
+          <vs-th> User_Id </vs-th>
         </vs-tr>
       </template>
       <template #tbody>
@@ -18,6 +19,9 @@
           </vs-td>
           <vs-td>
             {{ tr.id }}
+          </vs-td>
+          <vs-td>
+            {{ tr.userID }}
           </vs-td>
 
           <template #expand>
@@ -53,21 +57,20 @@
 import dataService from "../services/dataService";
 
 export default {
-  name: "WorkingTime",
-  props: ["workingtime"],
+  name: "WorkingTimes",
+  props: ["workingtimes"],
   methods: {
     remove(userID) {
       dataService.removeWorkingTime(userID);
       var index = this.workingtimes.findIndex((x) => x.id === userID);
       this.workingtimes.splice(index, 1);
     },
-    // save(userID) {
-    //   var query = document.querySelector(".input input").value;
-    //   dataService.UpdateWorkingTime(userID, start, end);
-    //   document.querySelector(".isExpand").click();
-    //   this.workingtimes.find((x) => x.id === userID).start = start;
-    //   this.workingtimes.find((x) => x.id === userID).end = end;
-    // },
+    save(userID) {
+      var query = document.querySelector(".input input").value;
+      dataService.UpdateWorkingTime(userID);
+      document.querySelector(".isExpand").click();
+      this.workingtimes.find((x) => x.id === userID).id = query;
+    },
   },
   data: () => ({
     dataService: dataService,

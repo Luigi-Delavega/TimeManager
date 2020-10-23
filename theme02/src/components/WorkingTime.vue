@@ -32,8 +32,12 @@ export default {
       workingtimes: []
     };
   },
-  created: function (userID) {
-   dataService.getAllWorkingTimes(userID).then((res) => {
+  created: function () {
+   dataService.getAllUsers().then((res) => {
+      this.users = JSON.parse(JSON.stringify(res.data.data));
+      this.workingtimes = this.users.forEach(user => {
+        dataService.getAllWorkingTimesUser(user.id)
+      });
       this.workingtimes = JSON.parse(JSON.stringify(res.data.data));
     });
   },
