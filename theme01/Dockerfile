@@ -9,8 +9,8 @@ RUN apt-get update && \
     mix archive.install hex phx_new 1.5.3 --force && \
     mix local.rebar --force
 
-ENV APP_HOME /app
-RUN mkdir $APP_HOME
-COPY . .
+ENV APP_HOME /
+RUN COPY . .
 WORKDIR $APP_HOME
-CMD ["mix" "phx.server"]
+
+CMD ["mix", "phx.server"]

@@ -12,8 +12,8 @@ services:
   db:
     image: postgres:9.6
     environment:
-      POSTGRES_USER: epitech
-      POSTGRES_PASSWORD: epitech
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     restart: always
     volumes:
