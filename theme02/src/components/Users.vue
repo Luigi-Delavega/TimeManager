@@ -86,24 +86,19 @@ export default {
 
       dataService.getClock(id)
       .then((clock) => {
-        var l = clock.data.data.length
-        console.log(clock.data.data);
-
-        if (clock.data.data.status == false ) {
+        var l = clock.data.data.length - 1
+        if (clock.data.data[l].status== false ) {
           dataService.PostClock(id, dformat, true)
             console.log("ok2");
         }
-        else if (clock.data.data.status == true) {
+        else if (clock.data.data[l].status == true) {
           dataService.PostClock(id, dformat, false)
             console.log("ok1");
         }
-        else {
+      }).catch(() => {
           dataService.PostClock(id, dformat, true)
-            console.log("ok3");
-
-        }
       })
-    },
+    }, 
   },
   data: () => ({
     dataService: dataService,
