@@ -19,6 +19,7 @@ defmodule GothamWeb.Router do
     resources "/clocks", ClockController, only: [:index]
     # required for post new clock & getAll by userId
     get("/clocks/:user_id", ClockController, :show_clocks)
+    get("/clocks/:user_id", ClockController, :show)
     post("/clocks/:user_id", ClockController, :create)
     options("/clocks/:user_id", ClockController, :create)
 
