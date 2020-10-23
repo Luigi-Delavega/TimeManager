@@ -1,5 +1,5 @@
 import axios from "axios";
-import {devServer} from "../../vue.config";
+import { devServer } from "../../vue.config";
 
 export default {
     getAllUsers() {
@@ -8,31 +8,25 @@ export default {
     },
     removeUser(id) {
         return axios
-        .delete(devServer.proxy + "/users/" + id);
+            .delete(devServer.proxy + "/users/" + id);
     },
-    
+
     UpdateUser(id, query) {
-        return  axios.put(devServer.proxy + "/users/" + id, {
+        return axios.put(devServer.proxy + "/users/" + id, {
             user: {
                 username: query
             }
         })
     },
-    PostClock(id) {
-        
-        var d = new Date,
-        dformat = [ (d.getFullYear()+1).padLeft(),
-                    d.getMonth().padLeft(),
-                    d.getDate()].join('-')+
-                    ' ' +
-                  [ d.getHours().padLeft(),
-                    d.getMinutes().padLeft(),
-                    d.getSeconds().padLeft()].join(':');
+    PostClock(id, time, status) {
         axios.post(devServer.proxy + "/clocks/" + id, {
             clock: {
-                state: true,
-                time: dformat
+                status: status,
+                time: time
             }
         })
+    },
+    getClock(id) {
+        return axios.get(devServer.proxy + "/clocks/" + id);
     }
 }
