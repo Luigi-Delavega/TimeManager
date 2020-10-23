@@ -7,12 +7,11 @@ RUN apt-get update && \
     curl -L https://npmjs.org/install.sh | sh && \
     mix local.hex --force && \
     mix archive.install hex phx_new 1.5.3 --force && \
-    mix local.rebar --force && \
-    mix deps.get
+    mix local.rebar --force
 
-
-ENV APP_HOME /
-COPY . .
+ENV APP_HOME /app
+RUN mkdir $APP_HOME
+COPY ./theme01 ./app
 WORKDIR $APP_HOME
 
 CMD ["mix", "phx.server"]
