@@ -10,7 +10,7 @@ RUN apt-get update && \
     mix local.rebar --force
 
 ENV APP_HOME /
-RUN COPY . .
+COPY . .
 WORKDIR $APP_HOME
 
 CMD ["mix", "phx.server"]
