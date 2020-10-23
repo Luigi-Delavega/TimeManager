@@ -56,7 +56,7 @@ export default {
         })
     },
     getWorkingTime(id, start, end) {
-        return axios.get(devServer.proxy + "/clocks/" + id, {
+        return axios.get(devServer.proxy + "/workingtimes/" + id, {
             workingtime: {
                 end: end,
                 start: start

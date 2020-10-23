@@ -1,52 +1,133 @@
 <template>
   <section class="parent">
-    <h1>{{title}}</h1>
-    <line-chart
-            id="line"
-            :data=lineChartData
+    <h1>{{ title }}</h1>
+    <b-row>
+      <b-col cols="5">
+        <div class="m-card donut">
+          <donut-chart
+            id="donut"
+            :data="donutData"
+            colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
+            resize="true"
+          >
+          </donut-chart>
+        </div>
+      </b-col>
+      <b-col cols="7">
+        <div class="m-card bar">
+          <bar-chart
+            id="bar"
+            :data="lineChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
-            xkey="year"
+            xkey="day"
             ykeys='[ "a", "b"]'
             grid="true"
             grid-text-weight="bold"
-            resize="true">
-    </line-chart>
+            resize="true"
+          >
+          </bar-chart>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row class="my-4">
+      <b-col>
+        <div class="m-card line">
+          <line-chart
+            id="line"
+            :data="lineChartData"
+            line-colors='[ "#FF6384", "#36A2EB" ]'
+            xkey="day"
+            ykeys='[ "a", "b"]'
+            grid="true"
+            grid-text-weight="bold"
+            resize="true"
+          >
+          </line-chart>
+        </div>
+      </b-col>
+    </b-row>
+    <div class="m-card area">
+      <area-chart
+        id="area"
+        :data="areaChartData"
+        line-colors='[ "#FF6384"]'
+        xkey="day"
+        ykeys='["v"]'
+        grid="true"
+        grid-text-weight="bold"
+        resize="true"
+      >
+      </area-chart>
+    </div>
     <router-view></router-view>
   </section>
 </template>
 
 <script>
 import dataService from "../services/dataService";
-import Raphael from 'raphael/raphael'
-global.Raphael = Raphael
-import { LineChart } from 'vue-morris'
+import Raphael from "raphael/raphael";
+global.Raphael = Raphael;
+import { DonutChart, LineChart, AreaChart, BarChart } from "vue-morris";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   data() {
     return {
-      title: 'Dashboard',
+      title: "Dashboard",
       users: [],
       dataService: dataService,
-      lineChartData: [
-        {year: "2013", a: 10, b: 5 },
-        {year: "2014", a: 40, b: 15 },
-        {year: "2015", a: 20, b: 25 },
-        {year: "2016", a: 30, b: 20 },
+      areaChartData: [],
+      donutData: [
+        { label: "Red", value: 300 },
+        { label: "Blue", value: 50 },
+        { label: "Yellow", value: 100 },
       ],
-    }
+    };
   },
   components: {
-    LineChart
+    DonutChart,
+    LineChart,
+    AreaChart,
+    BarChart,
   },
   created() {
     dataService.getAllUsers().then((res) => {
       this.users = res;
-      console.log(this.users);
     });
-  }
+    dataService.getWorkingTime(1).then((res) => {
+      console.log("ok");
+      this.graph_data(res.data.data);
+    });
+  },
+  methods: {
+    ms_to_h(ms) {
+      return Math.floor(ms / 1000 / 60 / 60);
+    },
+    graph_data(data) {
+      var start, end, ms, d, day;
+      console.log(data);
+      data.forEach(e => {
+          ms = Date.parse(e.end) - Date.parse(e.start);
+          d = new Date(e.start)
+          day = d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + " " + d.getUTCHours() + ":00"
+          this.areaChartData.push({
+            day: day,
+            v: this.ms_to_h(ms)
+          })
+      });
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.m-card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+}
 </style>

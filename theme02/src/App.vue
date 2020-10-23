@@ -25,11 +25,12 @@ export default {
   #app, 
   #app > .row,
    #app > .row > .col {
-    height: 100vh;
+    min-height: 100vh;
   }
   *:focus {
         outline: unset !important;
         outline: 0 !important;
   }
+
 </style>
 
