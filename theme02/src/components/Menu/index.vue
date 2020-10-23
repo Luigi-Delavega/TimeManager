@@ -16,13 +16,13 @@
         <template #icon>
           <font-awesome-icon icon="chart-line" />
         </template>
-        <router-link :to="{ path: 'search' }">Search</router-link>
+        <router-link :to="{ path: 'search' }">Manage users</router-link>
       </vs-sidebar-item>
       <vs-sidebar-item id="market">
         <template #icon>
           <font-awesome-icon icon="chart-line" />
         </template>
-        <router-link :to="{ path: 'create' }">Manage users</router-link>
+        <router-link :to="{ path: 'create' }">Create user</router-link>
       </vs-sidebar-item>
       <vs-sidebar-item id="market">
         <template #icon>

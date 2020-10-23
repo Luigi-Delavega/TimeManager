@@ -27,7 +27,7 @@ export default {
    #app > .row > .col {
     height: 100vh;
   }
-  button:focus {
+  *:focus {
         outline: unset !important;
         outline: 0 !important;
   }

@@ -144,7 +144,8 @@ defmodule Gotham.Export do
 
   """
   #get clock
-  def get_clock!(user_id), do: Repo.get!(Clock, user_id)
+  def get_clock!(id), do: Repo.get!(Clock, id)
+  def get_clocks_by_user_id!(user_id), do: Repo.all(from c in Clock, where: c.user_id == ^user_id)
 
   @doc """
   Creates a clock.
