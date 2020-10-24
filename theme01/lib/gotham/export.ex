@@ -225,8 +225,7 @@ defmodule Gotham.Export do
 
   """
   def list_workingtimes do
-    from(w in Workingtime)
-    |> Repo.all(Workingtimes)
+    Repo.all(Workingtimes)
   end
 
   def get_workingtime_by_end_start!(params) do

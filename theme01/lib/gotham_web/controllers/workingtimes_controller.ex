@@ -6,10 +6,10 @@ defmodule GothamWeb.WorkingtimesController do
 
   action_fallback GothamWeb.FallbackController
 
-  # def index(conn, _params) do
-  #   workingtimes = Export.list_workingtimes()
-  #   render(conn, "index.json", workingtimes: workingtimes)
-  # end
+    def indexAll(conn, _params) do
+    workingtimes = Export.list_workingtimes()
+    render(conn, "index.json", workingtimes: workingtimes)
+    end
 
   def index(conn, %{"end" => _end, "start" => _start, "user_id" => user_id} = params) do
     workingtimes = Export.get_workingtime_by_end_start!(params)

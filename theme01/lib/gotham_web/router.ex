@@ -24,6 +24,7 @@ defmodule GothamWeb.Router do
     # options("/clocks/:user_id", ClockController, :create)
 
     # required for post new workingtime & getAll by userId
+    get("/workingtimes", WorkingtimesController, :indexAll)
     get("/workingtimes/:user_id", WorkingtimesController, :show_workingtimes)
     get("/workingtimes/:user_id", WorkingtimesController, :show) ## pour post
     get("/workingtimes/:user_id/:id", WorkingtimesController, :showone) ## good

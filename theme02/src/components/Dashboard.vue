@@ -9,8 +9,12 @@
             :data="donutData"
             colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
             resize="true"
+            v-if="hasWorkingTime"
           >
           </donut-chart>
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered"></b-spinner>
+          </div>
         </div>
       </b-col>
       <b-col cols="7">
@@ -24,8 +28,12 @@
             grid="true"
             grid-text-weight="bold"
             resize="true"
+             v-if="hasWorkingTime"
           >
           </bar-chart>
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered"></b-spinner>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -41,8 +49,12 @@
             grid="true"
             grid-text-weight="bold"
             resize="true"
+             v-if="hasWorkingTime"
           >
           </line-chart>
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered"></b-spinner>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -56,8 +68,12 @@
         grid="true"
         grid-text-weight="bold"
         resize="true"
+         v-if="hasWorkingTime"
       >
       </area-chart>
+      <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered"></b-spinner>
+          </div>
     </div>
     <router-view></router-view>
   </section>
@@ -74,6 +90,7 @@ export default {
   data() {
     return {
       title: "Dashboard",
+      hasWorkingTime: false,
       users: [],
       dataService: dataService,
       areaChartData: [],
@@ -95,6 +112,7 @@ export default {
       this.users = res;
     });
     dataService.getWorkingTime(1).then((res) => {
+      this.hasWorkingTime = true
       console.log("ok");
       this.graph_data(res.data.data);
     });
@@ -124,10 +142,13 @@ export default {
 .m-card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-
+  min-height: 300px;
   transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
   &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   }
 }
 </style>
