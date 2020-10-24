@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <b-row>
       <b-col cols="5">
-        <div class="m-card donut">
+        <div class="m-card donut" v-bind:class="{ nodata: !hasWorkingTime}">
           <donut-chart
             id="donut"
             :data="donutData"
@@ -18,7 +18,7 @@
         </div>
       </b-col>
       <b-col cols="7">
-        <div class="m-card bar">
+        <div class="m-card bar" v-bind:class="{ nodata: !hasWorkingTime}">
           <bar-chart
             id="bar"
             :data="lineChartData"
@@ -28,7 +28,7 @@
             grid="true"
             grid-text-weight="bold"
             resize="true"
-             v-if="hasWorkingTime"
+            v-if="hasWorkingTime"
           >
           </bar-chart>
           <div class="text-center" v-else>
@@ -39,7 +39,7 @@
     </b-row>
     <b-row class="my-4">
       <b-col>
-        <div class="m-card line">
+        <div class="m-card line" v-bind:class="{ nodata: !hasWorkingTime}">
           <line-chart
             id="line"
             :data="lineChartData"
@@ -49,7 +49,7 @@
             grid="true"
             grid-text-weight="bold"
             resize="true"
-             v-if="hasWorkingTime"
+            v-if="hasWorkingTime"
           >
           </line-chart>
           <div class="text-center" v-else>
@@ -58,7 +58,7 @@
         </div>
       </b-col>
     </b-row>
-    <div class="m-card area">
+    <div class="m-card area" v-bind:class="{ nodata: !hasWorkingTime}">
       <area-chart
         id="area"
         :data="areaChartData"
@@ -68,12 +68,12 @@
         grid="true"
         grid-text-weight="bold"
         resize="true"
-         v-if="hasWorkingTime"
+        v-if="hasWorkingTime"
       >
       </area-chart>
       <div class="text-center" v-else>
-            <b-spinner variant="primary" label="Text Centered"></b-spinner>
-          </div>
+        <b-spinner variant="primary" label="Text Centered"></b-spinner>
+      </div>
     </div>
     <router-view></router-view>
   </section>
@@ -111,9 +111,9 @@ export default {
     dataService.getAllUsers().then((res) => {
       this.users = res;
     });
-    //  dataService.getWorkingTime(1) By id need to implement search
+    //  dataService.getWorkingTime(1) By id need
     dataService.getWorkingTime(1).then((res) => {
-      this.hasWorkingTime = true
+      this.hasWorkingTime = true;
       console.log("ok");
       this.graph_data(res.data.data);
     });
@@ -125,14 +125,22 @@ export default {
     graph_data(data) {
       var start, end, ms, d, day;
       console.log(data);
-      data.forEach(e => {
-          ms = Date.parse(e.end) - Date.parse(e.start);
-          d = new Date(e.start)
-          day = d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + " " + d.getUTCHours() + ":00"
-          this.areaChartData.push({
-            day: day,
-            v: this.ms_to_h(ms)
-          })
+      data.forEach((e) => {
+        ms = Date.parse(e.end) - Date.parse(e.start);
+        d = new Date(e.start);
+        day =
+          d.getUTCFullYear() +
+          "-" +
+          d.getUTCMonth() +
+          "-" +
+          d.getUTCDate() +
+          " " +
+          d.getUTCHours() +
+          ":00";
+        this.areaChartData.push({
+          day: day,
+          v: this.ms_to_h(ms),
+        });
       });
     },
   },
@@ -143,11 +151,13 @@ export default {
 .m-card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  min-height: 300px;
   transition: 0.3s;
+  &.nodata {
+    min-height: 300px;
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
+  }
   &:hover {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   }
