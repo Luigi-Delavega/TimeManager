@@ -1,6 +1,6 @@
 <template>
   <div class="hidden">
-    <vs-sidebar fixed hover-expand reduce v-model="active" open>
+    <vs-sidebar class="sidebar" fixed v-model="active" open reduce hover-expand>
       <template #logo>
         <img
           src="https://newsroom.ionis-group.com/wp-content/uploads/2018/12/epitech-logo-quadri-baseline-anglais.png"
@@ -58,4 +58,21 @@ button:focus {
   outline: 0 !important;
   outline: unset;
 }
+.sidebar a {
+  position: relative;
+}
+.sidebar a:hover button:after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 10px;
+    height: 100%;
+    background: rgba(var(--vs-color), 1);
+    border-radius: 0px 20px 20px 0px;
+    -webkit-transform: translate(-6px);
+    transform: translate(-6px);
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    z-index: 60;}
 </style>
