@@ -21,7 +21,7 @@
         <div class="m-card bar" v-bind:class="{ nodata: !hasWorkingTime }">
           <bar-chart
             id="bar"
-            :data="lineChartData"
+            :data="barChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
             xkey="day"
             ykeys='[ "a", "b"]'
@@ -102,11 +102,9 @@ export default {
       users: [],
       dataService: dataService,
       areaChartData: [],
-      donutData: [
-        { label: "Red", value: 300 },
-        { label: "Blue", value: 50 },
-        { label: "Yellow", value: 100 },
-      ],
+      barChartData: [],
+      lineChartData: [],
+      donutData: []
     };
   },
   components: {
@@ -117,19 +115,53 @@ export default {
   },
   created() {
     dataService.getAllUsers().then((res) => {
-      this.users = res;
+      this.users = res.data.data;
+      this.usersNumber = res.data.data.length;
     });
     //  dataService.getWorkingTime(1) By id need
     dataService.getAllWorkingTimes().then((res) => {
+      const index = [];
       this.hasWorkingTime = true;
-      console.log(res);
-      // this.graph_data(res.data.data);
+      // donutData Les 3 employés avec le plus de temps de travail
+      var userID,
+        user = JSON.parse(JSON.stringify(this.users)),
+        start,
+        end,
+        hours = [],
+        maxHours = [],
+        nb;
+      res.data.data.forEach((wt) => {
+        hours.push({
+          id: wt.user_id,
+          h: this.getHours(wt.start, wt.end),
+        });
+      });
+      for (let i = 0; i < user.length; i++) {
+        nb = hours
+          .filter((x) => x.id === user[i].id)
+          .map((x) => x.h)
+          .reduce((a, b) => a + b, 0);
+        maxHours.push({
+          id: user[i].id,
+          h: nb,
+        });
+      }
+      let values = maxHours.sort((a, b) => {
+        return b.h - a.h;
+      });
+      for (let i = 0; i < 3; i++) {
+        this.donutData.push({
+          label: "User id: " + maxHours[i].id.toString(),
+          value: values[i].h,
+        });
+      }
     });
   },
   methods: {
     ms_to_h(ms) {
       return Math.floor(ms / 1000 / 60 / 60);
     },
+    workedHours() {},
     graph_data(data) {
       var start, end, ms, d, day;
       console.log(data);
@@ -157,7 +189,10 @@ export default {
           this.hasWorkingTime = true;
           this.graph_data(res.data.data);
         });
-      });
+      })
+    },
+    getHours(start, end) {
+      return this.ms_to_h(Date.parse(end)) - this.ms_to_h(Date.parse(start));
     },
   },
 };
