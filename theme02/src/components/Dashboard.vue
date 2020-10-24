@@ -24,7 +24,7 @@
             :data="lineChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
             xkey="day"
-            ykeys='[ "day", "v"]'
+            ykeys='["v"]'
             grid="true"
             grid-text-weight="bold"
             resize="true"
@@ -45,7 +45,7 @@
             :data="lineChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
             xkey="day"
-            ykeys='[ "day", "v"]'
+            ykeys='["v"]'
             grid="true"
             grid-text-weight="bold"
             resize="true"
