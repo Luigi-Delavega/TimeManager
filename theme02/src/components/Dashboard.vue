@@ -59,6 +59,7 @@
       </b-col>
     </b-row>
     <div class="m-card area" v-bind:class="{ nodata: !hasWorkingTime}">
+      <vs-input shadow type="text" v-model="query" @keyup="getUserGraph(query)" placeholder="Username"  v-if="hasWorkingTime"/>
       <area-chart
         id="area"
         :data="areaChartData"
@@ -143,6 +144,11 @@ export default {
         });
       });
     },
+    getUserGraph(name) {
+      dataService.getUserByName(name).then((res) => {
+        console.log(res.data.data)
+      })
+    }
   },
 };
 </script>

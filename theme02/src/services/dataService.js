@@ -3,14 +3,14 @@ import { devServer } from "../../vue.config";
 
 export default {
     getAllUsers() {
-        return axios
-            .get(devServer.proxy + "/users");
+        return axios.get(devServer.proxy + "/users");
+    },
+    getUserByName(name) {
+        return axios.get(devServer.proxy + "/user/" + name);
     },
     removeUser(id) {
-        return axios
-            .delete(devServer.proxy + "/users/" + id);
+        return axios.delete(devServer.proxy + "/users/" + id);
     },
-
     UpdateUser(id, query) {
         return axios.put(devServer.proxy + "/users/" + id, {
             user: {
@@ -29,16 +29,15 @@ export default {
     getClock(id) {
         return axios.get(devServer.proxy + "/clocks/" + id);
     },
-
+    getAllWorkingTimes() {
+        return axios.get(devServer.proxy + "/workingtimes");
+    },
     getAllWorkingTimesUser(id) {
-        return axios
-            .get(devServer.proxy + "/workingtimes/" + id);
+        return axios.get(devServer.proxy + "/workingtimes/" + id);
     },
     removeWorkingTime(id) {
-        return axios
-            .delete(devServer.proxy + "/workingtimes/" + id);
+        return axios.delete(devServer.proxy + "/workingtimes/" + id);
     },
-
     UpdateWorkingTime(id, start, end) {
         return axios.put(devServer.proxy + "/workingtimes/" + id, {
             workingtime: {
