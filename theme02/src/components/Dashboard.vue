@@ -1,5 +1,5 @@
 <template>
-  <section class="parent">
+  <section class="parent mr-5" >
     <h1>{{ title }}</h1>
     <b-row>
       <b-col cols="5">
@@ -21,10 +21,10 @@
         <div class="m-card bar" v-bind:class="{ nodata: !hasWorkingTime }">
           <bar-chart
             id="bar"
-            :data="barChartData"
+            :data="lineChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
             xkey="day"
-            ykeys='[ "a", "b"]'
+            ykeys='[ "day", "v"]'
             grid="true"
             grid-text-weight="bold"
             resize="true"
@@ -45,7 +45,7 @@
             :data="lineChartData"
             line-colors='[ "#FF6384", "#36A2EB" ]'
             xkey="day"
-            ykeys='[ "a", "b"]'
+            ykeys='[ "day", "v"]'
             grid="true"
             grid-text-weight="bold"
             resize="true"
@@ -118,9 +118,9 @@ export default {
       this.users = res.data.data;
       this.usersNumber = res.data.data.length;
     });
-    //  dataService.getWorkingTime(1) By id need
     dataService.getAllWorkingTimes().then((res) => {
-      const index = [];
+      let data = res.data.data;
+      this.graph_data_all(data)
       this.hasWorkingTime = true;
       // donutData Les 3 employés avec le plus de temps de travail
       var userID,
@@ -130,7 +130,7 @@ export default {
         hours = [],
         maxHours = [],
         nb;
-      res.data.data.forEach((wt) => {
+      data.forEach((wt) => {
         hours.push({
           id: wt.user_id,
           h: this.getHours(wt.start, wt.end),
@@ -162,10 +162,10 @@ export default {
       return Math.floor(ms / 1000 / 60 / 60);
     },
     workedHours() {},
-    graph_data(data) {
+    graph_data_area(data) {
       var start, end, ms, d, day;
-      console.log(data);
       data.forEach((e) => {
+        // Formate le temps pour momoJS 
         ms = Date.parse(e.end) - Date.parse(e.start);
         d = new Date(e.start);
         day =
@@ -187,20 +187,41 @@ export default {
       dataService.getUserByName(name).then((res) => {
         dataService.getWorkingTime(res.data.data.id).then((res) => {
           this.hasWorkingTime = true;
-          this.graph_data(res.data.data);
+          this.graph_data_area(res.data.data);
         });
       })
     },
     getHours(start, end) {
       return this.ms_to_h(Date.parse(end)) - this.ms_to_h(Date.parse(start));
     },
+    graph_data_all(data) {
+      console.log(data);
+        var start, end, ms, d, day;
+        data.forEach((e) => {
+          // Formate le temps pour momoJS 
+          ms = Date.parse(e.end) - Date.parse(e.start);
+          d = new Date(e.start);
+          day =
+            d.getUTCFullYear() +
+            "-" +
+            d.getUTCMonth() +
+            "-" +
+            d.getUTCDate() +
+            " " +
+            d.getUTCHours() +
+            ":00";
+          this.lineChartData.push({
+            day: day,
+            v: this.ms_to_h(ms),
+          });
+        })
+      }
   },
 };
 </script>
 
 <style lang="scss">
 .m-card {
-  /* Add shadows to create the "card" effect */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   &.nodata {
