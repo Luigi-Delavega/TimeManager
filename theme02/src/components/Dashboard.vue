@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <b-row>
       <b-col cols="5">
-        <div class="m-card donut" v-bind:class="{ nodata: !hasWorkingTime}">
+        <div class="m-card donut" v-bind:class="{ nodata: !hasWorkingTime }">
           <donut-chart
             id="donut"
             :data="donutData"
@@ -18,7 +18,7 @@
         </div>
       </b-col>
       <b-col cols="7">
-        <div class="m-card bar" v-bind:class="{ nodata: !hasWorkingTime}">
+        <div class="m-card bar" v-bind:class="{ nodata: !hasWorkingTime }">
           <bar-chart
             id="bar"
             :data="lineChartData"
@@ -39,7 +39,7 @@
     </b-row>
     <b-row class="my-4">
       <b-col>
-        <div class="m-card line" v-bind:class="{ nodata: !hasWorkingTime}">
+        <div class="m-card line" v-bind:class="{ nodata: !hasWorkingTime }">
           <line-chart
             id="line"
             :data="lineChartData"
@@ -58,8 +58,15 @@
         </div>
       </b-col>
     </b-row>
-    <div class="m-card area" v-bind:class="{ nodata: !hasWorkingTime}">
-      <vs-input shadow type="text" v-model="query" @keyup="getUserGraph(query)" placeholder="Username"  v-if="hasWorkingTime"/>
+    <div class="m-card area" v-bind:class="{ nodata: !hasWorkingTime }">
+      <vs-input
+        shadow
+        type="text"
+        v-model="query"
+        @keyup="getUserGraph(query)"
+        placeholder="Username"
+        v-if="hasWorkingTime"
+      />
       <area-chart
         id="area"
         :data="areaChartData"
@@ -113,10 +120,10 @@ export default {
       this.users = res;
     });
     //  dataService.getWorkingTime(1) By id need
-    dataService.getWorkingTime(1).then((res) => {
+    dataService.getAllWorkingTimes().then((res) => {
       this.hasWorkingTime = true;
-      console.log("ok");
-      this.graph_data(res.data.data);
+      console.log(res);
+      // this.graph_data(res.data.data);
     });
   },
   methods: {
@@ -146,9 +153,12 @@ export default {
     },
     getUserGraph(name) {
       dataService.getUserByName(name).then((res) => {
-        console.log(res.data.data)
-      })
-    }
+        dataService.getWorkingTime(res.data.data.id).then((res) => {
+          this.hasWorkingTime = true;
+          this.graph_data(res.data.data);
+        });
+      });
+    },
   },
 };
 </script>
