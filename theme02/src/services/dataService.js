@@ -9,7 +9,7 @@ export default {
         return axios.get(devServer.proxy + "/user/" + name);
     },
     getUserById(id) {
-        return axios.get(devServer.proxy + "/user/" + id);
+        return axios.get(devServer.proxy + "/users/" + id);
     },
     removeUser(id) {
         return axios.delete(devServer.proxy + "/users/" + id);
