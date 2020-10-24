@@ -12,6 +12,7 @@ defmodule GothamWeb.Router do
     pipe_through :api
 
     get "/users", UserController, :getAll
+    get "/user/:username", UserController, :show_by_username
     resources "/users", UserController, except: [:new, :edit]
     # options "/users", UserController, :create
     # options "/users/:id", UserController, :remove

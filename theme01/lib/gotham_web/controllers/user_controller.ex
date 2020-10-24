@@ -30,6 +30,11 @@ defmodule GothamWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
+  def show_by_username(conn, %{"username" => username}) do
+    user = Export.get_user_by_name!(username)
+    render(conn, "show.json", user: user)
+  end
+
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Export.get_user!(id)
 

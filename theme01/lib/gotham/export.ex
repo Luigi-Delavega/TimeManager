@@ -42,7 +42,9 @@ defmodule Gotham.Export do
   end
 
   def get_user!(id), do: Repo.get!(User, id)
-
+  
+  def get_user_by_name!(username), do: Repo.get_by!(User, username: username)
+ 
   @doc """
   Creates a user.
 
