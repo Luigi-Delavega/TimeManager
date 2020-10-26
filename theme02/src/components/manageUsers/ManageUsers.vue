@@ -13,17 +13,17 @@
         />
       </div>
     </div>
-    <Users v-bind:users="users"/>
+    <ManageUserTab v-bind:users="users"/>
   </div>
 </template>
 <script>
-import Users from "./Users";
-import dataService from "../services/dataService";
+import ManageUserTab from "./ManageUserTab";
+import dataService from "../../services/dataService";
 
 export default {
-  name: "search",
+  name: "ManageUser",
   components: {
-    Users,
+    ManageUserTab,
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
   <div class="hidden">
-    <vs-sidebar class="sidebar" fixed v-model="active" open reduce hover-expand>
+    <vs-sidebar class="sidebar" fixed open reduce hover-expand>
       <template #logo>
         <img
           src="https://newsroom.ionis-group.com/wp-content/uploads/2018/12/epitech-logo-quadri-baseline-anglais.png"
@@ -14,7 +14,7 @@
           Dashboard
         </vs-sidebar-item>
       </router-link>
-      <router-link :to="{ path: 'search' }">
+      <router-link :to="{ path: 'manage-users' }">
         <vs-sidebar-item id="search">
           <template #icon>
             <font-awesome-icon icon="chart-line" />
@@ -30,7 +30,7 @@
           Create user
         </vs-sidebar-item>
       </router-link>
-      <router-link :to="{ path: 'workingtime' }">
+      <router-link :to="{ path: 'manage-working-times' }">
         <vs-sidebar-item id="market">
           <template #icon>
             <font-awesome-icon icon="chart-line" />

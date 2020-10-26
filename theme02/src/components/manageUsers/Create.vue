@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       results: "",
+      notification: "",
       form: {
           email: "",
           username: ""
@@ -48,12 +49,14 @@ export default {
     };
   },
   methods: {
-    // getResult(query) {
-    //   axios.get("http://localhost:4000/users/:id" + query).then((response) => {
-    //     this.results = response.data.results;
-    //   });
-    //   console.log(query);
-    // },
+    openNotification(position = null, color) {
+      const noti = this.$vs.notification({
+        progress: "auto",
+        color,
+        position,
+        title: this.notification,
+      });
+    },
     onSubmit(evt) {
       evt.preventDefault();
       axios.post(`http://localhost:4000/api/users`, {
@@ -61,6 +64,8 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          this.notification = res.data.data.username + " has been created"
+          this.openNotification('top-right', 'success')
         })
         .catch((e) => {
           console.log(e);
