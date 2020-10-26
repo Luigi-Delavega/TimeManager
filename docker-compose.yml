@@ -2,9 +2,7 @@ version: '3'
 
 services:
   back:
-    build:
-      context: ./theme01/
-        dockerfile: Dockerfile
+    build: ./theme01/
     container_name: back
     environment:
       - PORT=4000
@@ -21,9 +19,7 @@ services:
     depends_on:
       - db
   front:
-    build:
-      context: ./theme02/
-        dockerfile: Dockerfile
+    build: ./theme02/
     container_name: front
     ports:
       - "80:8080"
@@ -32,9 +28,7 @@ services:
     depends_on:
       - back
   db:
-    build:
-      context: .
-        dockerfile: Dockerfile
+    build: .
     container_name: gotham-db
     restart: always
     volumes:
