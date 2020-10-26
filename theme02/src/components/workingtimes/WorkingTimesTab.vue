@@ -26,15 +26,13 @@
           <template #expand>
             <div class="con-content d-flex justify-content-end">
               <div class="d-flex align-items-end w-50">
-                <vs-avatar>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRCDe5JZ_HkfuU5VFQDlF0j1jeCl-SCj_mJdA&usqp=CAU"
-                  />
-                </vs-avatar>
-                <vs-input type="text" class="px-4 input" />
+                <vs-input type="date" class="px-4 input" />
+                <vs-input type="date" class="px-4 input" />
               </div>
               <div class="d-flex w-50 justify-content-end">
-                <vs-button flat icon v-on:click="save(tr.id)">Save new time</vs-button>
+                <vs-button flat icon v-on:click="save(tr.id)"
+                  >Save new time</vs-button
+                >
                 <vs-button border danger v-on:click="remove(tr.id)">
                   Delete
                 </vs-button>
@@ -59,16 +57,16 @@ export default {
       var index = this.workingtimes.findIndex((x) => x.id === id);
       document.querySelector(".isExpand").click();
       this.workingtimes.splice(index, 1);
-      this.notification = "Working time " + id + " has been removed"
-      this.openNotification('top-right', 'danger')
+      this.notification = "Working time " + id + " has been removed";
+      this.openNotification("top-right", "danger");
     },
     save(id) {
       var query = document.querySelector(".input input").value;
       dataService.UpdateWorkingTime(id);
       document.querySelector(".isExpand").click();
       this.workingtimes.find((x) => x.id === id).id = query;
-      this.notification = "Working time " + id + " has been edited"
-      this.openNotification('top-right', 'success')
+      this.notification = "Working time " + id + " has been edited";
+      this.openNotification("top-right", "success");
     },
     openNotification(position = null, color) {
       const noti = this.$vs.notification({
@@ -77,7 +75,7 @@ export default {
         position,
         title: this.notification,
       });
-    }
+    },
   },
   data: () => ({
     dataService: dataService,
