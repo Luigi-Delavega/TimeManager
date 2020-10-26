@@ -62,8 +62,8 @@
       <vs-input
         shadow
         type="text"
-        v-model="query"
-        @keyup="getUserGraph(query)"
+        v-model="name"
+        @keyup="getUserGraph(name)"
         placeholder="Username"
         v-if="hasWorkingTime"
       />
@@ -104,7 +104,8 @@ export default {
       areaChartData: [],
       barChartData: [],
       lineChartData: [],
-      donutData: []
+      donutData: [],
+      name
     };
   },
   components: {

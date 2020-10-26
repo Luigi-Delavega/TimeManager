@@ -50,24 +50,39 @@
 </template>
 
 <script>
-import dataService from "../services/dataService";
+import dataService from "../../services/dataService";
 // import axios from "axios";
 // import { devServer } from "../../vue.config";
 
 export default {
-  name: "Users",
+  name: "ManageUserTab",
   props: ["users"],
   methods: {
     remove(userID) {
+      this.notification = "User " + this.users.find((x) => x.id === userID).username + " has been deleted"
       dataService.removeUser(userID);
+      document.querySelector(".isExpand").click();
       var index = this.users.findIndex((x) => x.id === userID);
       this.users.splice(index, 1);
+      this.openNotification('top-right', 'danger')
+
     },
     save(userID) {
       var query = document.querySelector(".input input").value;
       dataService.UpdateUser(userID, query);
       document.querySelector(".isExpand").click();
       this.users.find((x) => x.id === userID).username = query;
+      this.notification = this.users.find((x) => x.id === userID).username + " has been deleted"
+      this.openNotification('top-right', 'success')
+      
+    },
+    openNotification(position = null, color) {
+      const noti = this.$vs.notification({
+        progress: "auto",
+        color,
+        position,
+        title: this.notification,
+      });
     },
     postClock(id) {
       var d = new Date(),
@@ -103,6 +118,7 @@ export default {
   data: () => ({
     dataService: dataService,
     query: "",
+    notification: ""
   }),
 };
 Number.prototype.padLeft = function (base, chr) {

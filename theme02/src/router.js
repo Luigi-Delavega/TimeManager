@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Dashboard from "./components/Dashboard";
-import Search from "./components/Search";
-import Create from "./components/Create";
-import WorkingTime from "./components/WorkingTime";
+import ManageUsers from "./components/manageUsers/ManageUsers";
+import Create from "./components/manageUsers/Create";
+import ManageWorkingTimes from "./components/workingtimes/ManageWorkingTimes";
 
 Vue.use(Router);
 
@@ -19,11 +19,11 @@ export default new Router({
       }
     },
     {
-      path: "/search",
-      name: "Search",
-      component: Search,
+      path: "/manage-users",
+      name: "ManageUsers",
+      component: ManageUsers,
       meta: {
-        label: "Search"
+        label: "Manage-users"
       }
     },
     {
@@ -35,11 +35,11 @@ export default new Router({
       }
     },
     {
-      path: "/workingtime",
-      name: "WorkingTime",
-      component: WorkingTime,
+      path: "/manage-working-times",
+      name: "ManageWorkingTimes",
+      component: ManageWorkingTimes,
       meta: {
-        label: "WorkingTime"
+        label: "ManageWorkingTimes"
       }
     }
   ]

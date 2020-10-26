@@ -21,9 +21,8 @@
             {{ tr.id }}
           </vs-td>
           <vs-td>
-            {{ tr.userID }}
+            {{ tr.user_id }}
           </vs-td>
-
           <template #expand>
             <div class="con-content d-flex justify-content-end">
               <div class="d-flex align-items-end w-50">
@@ -35,14 +34,9 @@
                 <vs-input type="text" class="px-4 input" />
               </div>
               <div class="d-flex w-50 justify-content-end">
-                <!-- <vs-button flat icon v-on:click="postClock(tr.id)">
-                  <font-awesome-icon icon="clock" />
-                </vs-button> -->
-
-                <vs-button flat icon v-on:click="save(tr.id)">Save</vs-button>
-
+                <vs-button flat icon v-on:click="save(tr.id)">Save new time</vs-button>
                 <vs-button border danger v-on:click="remove(tr.id)">
-                  Remove WorkingTime
+                  Delete
                 </vs-button>
               </div>
             </div>
@@ -54,27 +48,40 @@
 </template>
 
 <script>
-import dataService from "../services/dataService";
+import dataService from "../../services/dataService";
 
 export default {
   name: "WorkingTimes",
   props: ["workingtimes"],
   methods: {
-    remove(userID) {
-      dataService.removeWorkingTime(userID);
-      var index = this.workingtimes.findIndex((x) => x.id === userID);
-      this.workingtimes.splice(index, 1);
-    },
-    save(userID) {
-      var query = document.querySelector(".input input").value;
-      dataService.UpdateWorkingTime(userID);
+    remove(id) {
+      dataService.removeWorkingTime(id);
+      var index = this.workingtimes.findIndex((x) => x.id === id);
       document.querySelector(".isExpand").click();
-      this.workingtimes.find((x) => x.id === userID).id = query;
+      this.workingtimes.splice(index, 1);
+      this.notification = "Working time " + id + " has been removed"
+      this.openNotification('top-right', 'danger')
     },
+    save(id) {
+      var query = document.querySelector(".input input").value;
+      dataService.UpdateWorkingTime(id);
+      document.querySelector(".isExpand").click();
+      this.workingtimes.find((x) => x.id === id).id = query;
+      this.notification = "Working time " + id + " has been edited"
+      this.openNotification('top-right', 'success')
+    },
+    openNotification(position = null, color) {
+      const noti = this.$vs.notification({
+        progress: "auto",
+        color,
+        position,
+        title: this.notification,
+      });
+    }
   },
   data: () => ({
     dataService: dataService,
-    query: "",
+    notification: "",
   }),
 };
 Number.prototype.padLeft = function (base, chr) {
