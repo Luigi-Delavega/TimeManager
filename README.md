@@ -1,0 +1,1 @@
+optionel mac: brew services start postgresql
