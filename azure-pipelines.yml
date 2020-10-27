@@ -24,7 +24,7 @@ stages:
         azureSubscription: 'Essai gratuit(59d7c384-c2c9-4648-8862-b722fba18e35)'
         dockerComposeFile: '**/docker-compose.yml'
         action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'up -d --abort-on-container-exit'
+        dockerComposeCommand: 'up -d'
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
