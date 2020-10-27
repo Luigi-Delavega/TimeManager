@@ -39,7 +39,14 @@ services:
       - "5432"
     networks:
       - db-network
-
+  test:
+      build:
+        context: .
+        dockerfile: test.Dockerfile
+      volumes:
+          - .:/app
+      depends_on:
+        - db
 volumes:
   gotham_db: {}
 networks:
