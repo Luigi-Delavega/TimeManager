@@ -18,6 +18,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'TimeManagerCICDacr'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Azure Container Registry'
