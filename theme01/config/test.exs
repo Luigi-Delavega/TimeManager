@@ -20,3 +20,9 @@ config :gotham, GothamWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :junit_formatter,
+  report_file: "test.xml",
+  report_dir: "./",
+  print_report_file: true,
+  prepend_project_name?: true
