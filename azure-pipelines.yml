@@ -28,4 +28,4 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'timemanager-report_file_test.xml'
+        testResultsFiles: '**/*.xml'
